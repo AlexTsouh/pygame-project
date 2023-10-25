@@ -21,7 +21,7 @@ def main():
     platforms = []
     particles = []
 
-    f = open("lvl.json")
+    f = open("game/lvl.json")
     data= json.load(f)
     for i in data['lvl']:
         platforms.append(i)
@@ -92,7 +92,6 @@ def main():
                 run = False
             
         pygame.display.update()
-    time.sleep(5)
     pygame.quit()
     
 
