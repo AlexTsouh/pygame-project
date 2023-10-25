@@ -5,8 +5,8 @@ pygame.init()
 import json
 
 def main():
-    screen_w = 1550
-    screen_h = 750
+    screen_w = 1920
+    screen_h = 1025
     
     player_x_vel = 0
     player_y_vel = 0
@@ -22,19 +22,29 @@ def main():
     platforms = []
     particles = []
 
-    f = open('lvl.json')
-    lvlfile = json.load(f)
+    with open('/pygame game/lvl.json') as f:
+        data= json.load(f)
 
-    for i in lvlfile['lvl']:
-        platforms.append(tuple(i))
+    for i in data['lvl']:
+        platforms.append(i)
+        print(i)
+        print(i['x'])
 
-    platforms.append((screen_w/2,screen_h-100,500,10))
+    def collide():
+        c = False
+        for i in platforms:
+            if player.colliderect(int(i['x']),int(i['y']),int(i['w']),int(i['h'])):
+                c = True
+
+        return c
+            
+
+
     run = True
     while run:
-        clock.tick(330)
+        clock.tick(165)
         screen.fill((0,0,0))
         particles.append([[player.x+player.width/2,player.y+player.width-player.width/5], [random.randint(-2,2)/10, random.randint(-2,2)/10], random.randint(3,6)])
-
         key = pygame.key.get_pressed()
         #left/right
         if key[pygame.K_a] == True and player_x_vel>=-3:
@@ -57,7 +67,7 @@ def main():
             player_y_vel = 0
             player_jump = False
         
-        if player.colliderect(lvl) == True:
+        if collide() == True:
                 player_jump = False
                 player_y_vel = 0
 
@@ -65,12 +75,10 @@ def main():
             if player_y_vel <5:
                 player_y_vel += 0.15
 
-        if player.colliderect(lvl) == False and player_jump == False:
+        if collide() == False and player_jump == False:
             if player_y_vel <5:
                 player_y_vel += 0.15
-
-        player.move_ip(player_x_vel, player_y_vel)
-
+        
         for particle in particles:
             particle[0][0] += particle[1][0]
             particle[0][1] += particle[1][1]
@@ -79,11 +87,11 @@ def main():
             if particle[2] <= 0:
                 particles.remove(particle)
 
+        player.move_ip(player_x_vel, player_y_vel)
+
         pygame.draw.rect(screen, (255,255,255), player)
-        pygame.draw.rect(screen, (255,255,255), lvl)
         for e in platforms:
-            print(e[1])
-            # pygame.draw.rect(screen, platforms[e][0], pygame.Rect(platforms[e][1], platforms[e][2], platforms[e][3], platforms[e][4]))
+            pygame.draw.rect(screen, "white", pygame.Rect((int(e['x']), int(e['y']), int(e['w']), int(e['h']))))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
