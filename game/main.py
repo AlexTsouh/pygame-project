@@ -22,7 +22,7 @@ def main():
     platforms = []
     particles = []
 
-    f = open('/lvl.json')
+    f = open('lvl.json')
 
     data= json.load(f)
 
