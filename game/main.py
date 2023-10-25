@@ -21,7 +21,7 @@ def main():
     platforms = []
     particles = []
 
-    f = open("game/lvl.json")
+    f = open("lvl.json")
     data= json.load(f)
     for i in data['lvl']:
         platforms.append(i)
