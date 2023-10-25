@@ -28,8 +28,6 @@ def main():
 
     for i in data['lvl']:
         platforms.append(i)
-        print(i)
-        print(i['x'])
 
     def collide():
         c = False
