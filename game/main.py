@@ -16,17 +16,13 @@ def main():
     screen = pygame.display.set_mode((screen_w,screen_h))
 
     player = pygame.Rect((screen_w/2,screen_h/2,50,50))
-
-    lvl = pygame.Rect((screen_w/2,screen_h-100,500,10))
     clock = pygame.time.Clock()
     
     platforms = []
     particles = []
 
     f = open("game/lvl.json")
-
     data= json.load(f)
-
     for i in data['lvl']:
         platforms.append(i)
 
@@ -37,9 +33,7 @@ def main():
                 c = True
 
         return c
-            
-
-
+    
     run = True
     while run:
         clock.tick(165)
