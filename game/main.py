@@ -3,6 +3,7 @@ from pygame.locals import *
 from sys import exit
 pygame.init()
 import json
+import time
 
 def main():
     screen_w = 1920
@@ -98,6 +99,7 @@ def main():
             
         pygame.display.update()
     pygame.quit()
+    time.sleep(5)
 
 if __name__ == "__main__":
     main()
