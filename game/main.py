@@ -21,7 +21,7 @@ def main():
     platforms = []
     particles = []
 
-    f = open("game/lvl.json")
+    f = open("game\lvl.json")
     data= json.load(f)
     for i in data['lvl']:
         platforms.append(i)
@@ -77,7 +77,7 @@ def main():
             particle[0][0] += particle[1][0]
             particle[0][1] += particle[1][1]
             particle[2] -= 0.1
-            pygame.draw.circle(screen, ('red'), particle[0], particle[2])
+            pygame.draw.circle(screen, ('white'), particle[0], particle[2])
             if particle[2] <= 0:
                 particles.remove(particle)
 
