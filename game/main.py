@@ -98,8 +98,9 @@ def main():
                 run = False
             
         pygame.display.update()
-    pygame.quit()
     time.sleep(5)
+    pygame.quit()
+    
 
 if __name__ == "__main__":
     main()
