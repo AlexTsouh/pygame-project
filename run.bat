@@ -1,3 +1,3 @@
 
 pip3 install pygame
-start main.py
+start game/main.py
