@@ -22,7 +22,7 @@ def main():
     platforms = []
     particles = []
 
-    f = open('game/lvl.json')
+    f = open("game/lvl.json")
 
     data= json.load(f)
 
