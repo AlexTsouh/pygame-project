@@ -42,36 +42,39 @@ def main():
         key = pygame.key.get_pressed()
         #left/right
         if key[pygame.K_a] == True and player_x_vel>=-3:
-            player_x_vel += -0.1
-        if key[pygame.K_d] == True and player_x_vel<=3:
-            player_x_vel += 0.1
-        if key[pygame.K_a] == False and key[pygame.K_d] == False:
             if player_x_vel >= 0:
-                player_x_vel += -0.04
-            else:
-                player_x_vel += 0.04
+                player_x_vel -= player_x_vel
+            player_x_vel += -0.25
+        if key[pygame.K_d] == True and player_x_vel<=3:
+            if player_x_vel <= 0:
+                player_x_vel -= player_x_vel
+            player_x_vel += 0.25
+        if key[pygame.K_a] == False and key[pygame.K_d] == False:
+            if player_x_vel != 0:
+                player_x_vel -= player_x_vel
         #jump
-        if key[pygame.K_SPACE] == True:
-            if player_jump == False:
-                player_y_vel = -7
-                player.move_ip(0, player_y_vel)
-                player_jump = True
-
-        if player.y > screen_h - player_y_vel - player.size[0]:
-            player_y_vel = 0
-            player_jump = False
-        
         if collide() == True:
                 player_jump = False
                 player_y_vel = 0
 
         if player_jump == True:
-            if player_y_vel <5:
-                player_y_vel += 0.15
+            if collide() == False:
+                if player_y_vel <5:
+                    player_y_vel += 0.15
 
         if collide() == False and player_jump == False:
             if player_y_vel <5:
                 player_y_vel += 0.15
+
+        if key[pygame.K_SPACE] == True:
+            if player_jump == False:
+                if collide() == True:
+                    player_y_vel = -7
+                    player_jump = True
+        
+        
+
+        
         
         for particle in particles:
             particle[0][0] += particle[1][0]
@@ -85,7 +88,8 @@ def main():
 
         pygame.draw.rect(screen, (255,255,255), player)
         for e in platforms:
-            pygame.draw.rect(screen, "white", pygame.Rect((int(e['x']), int(e['y']), int(e['w']), int(e['h']))))
+            print(e['color'])
+            pygame.draw.rect(screen, e['color'], pygame.Rect((int(e['x']), int(e['y']), int(e['w']), int(e['h']))))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
