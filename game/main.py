@@ -52,6 +52,7 @@ def main():
         if key[pygame.K_a] == False and key[pygame.K_d] == False:
             if player_x_vel != 0:
                 player_x_vel -= player_x_vel
+        
         #jump
         if collide() == True:
                 player_jump = False
@@ -71,11 +72,7 @@ def main():
                 if collide() == True:
                     player_y_vel = -7
                     player_jump = True
-        
-        
 
-        
-        
         for particle in particles:
             particle[0][0] += particle[1][0]
             particle[0][1] += particle[1][1]
